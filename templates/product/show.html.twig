@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Show Product{% endblock %}
+
+{% block body %}
+<div class ="row my-5 mx-4" style="width:40rem">
+  <div class="my-3 d-flex justify-content-start align-items-center">
+<div>
+<a href="{{path('register_order',{product:product.id})}}" class="btn btn-sm btn-outline-primary mx-1" ><i class="fa-solid fa-cart-shopping"></i></a>
+</div>
+</div>
+<div class="container">
+      <figure class="figure">
+      <img src="{{asset('/uploads/'~product.image)}}" class="figure-img img-fluid rounded" alt="{{product.id}}" style="width:600px; height:400px;" >
+       <h1>{{product.name}}</h1> 
+      <figcaption class="figure-caption"><span class="text text-primary">Laptop price : </span>{{product.price}}DH</figcaption>
+      <figcaption class="figure-caption"><span class="text text-primary">about labtop : </span>{{product.description}}</figcaption>
+      <figcaption class="figure-caption" ><span class="text text-primary">labtop cathegory : </span>{{product.cathegorie.name}}</figcaption>
+      </figure>
+ </div>
+</div>
+</div>
+</div>
+{% endblock %}

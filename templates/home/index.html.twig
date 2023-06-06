@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+<div class ="row my-5">
+  <div class="col-md-12">
+  <div class="my-3 d-flex justify-content-between align-items-center">
+  <button type="button" class="btn btn-primary position-relative">
+  Products
+  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+    {{products | length}}
+    <span class="visually-hidden">unread messages</span>
+  </span>
+</button>
+<div>
+<a href="{{path('home')}}" class="btn btn-sm btn-outline-primary mx-1" >All</a>
+
+{% for cathegorie in cathegories %}
+<a href="{{path('cathegories',{cathegorie:cathegorie.id})}}" class="btn btn-sm btn-outline-primary mx-1" >{{cathegorie.name}}</a>
+{% endfor %}
+</div>
+</div>
+<div class="row">
+{% for product in products %}
+<div class="card mx-1" style="width: 18rem;">
+  <img src="{{asset('/uploads/'~product.image)}}" alt="{{product.id}}" class="card-img-top" style="width:100%; height:300px">
+  <div class="card-body">
+    <h5 class="card-title">{{product.name}}</h5>
+    <p class="card-text">{{product.description}}</p>
+    <h5><span class="text text-danger">{{product.price}}</span></h5>
+   <a  href="{{path('product',{id:product.id})}}" class="btn  btn-sm btn-dark">Show</a>
+  </div>
+</div>
+{% endfor %}
+</div>
+  </div> 
+</div>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Orders{% endblock %}
+
+{% block body %}
+<h2>List Orders</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Product name</th>
+      <th scope="col">Price</th>
+      <th scope="col">Status</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% set sum = 0 %}
+   {% for order in user.orders %}
+   {% set sum = sum + order.price %}
+     <tr>
+      <td scope="col">{{loop.index}}</td>
+      <td scope="col">{{order.pname}}</td>
+     <td scope="col">{{order.price}}</td>
+     <td scope="col">
+     {% if order.status == 'Processing...'%}
+        <span class="badge bg-dark p-2">{{order.status}}</span>
+     {% elseif order.status == 'Shipped'%}
+     <span class="badge bg-success p-2">{{order.status}}</span>
+     {% else %}
+ <span class="badge bg-danger p-2">{{order.status}}</span>
+     {% endif %}
+
+     </td>
+    </tr>
+   {% endfor %}
+   <tr class="text-center">
+   <th colspan="3">Total</th>
+   <td class="fw-bold">{{ sum }}DH</td>
+   </tr>
+  </tbody>
+</table>
+</div>
+
+
+{% endblock %}

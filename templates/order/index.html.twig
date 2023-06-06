@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Orders{% endblock %}
+
+{% block body %}
+<h2>Orders</h2>
+  <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Product name</th>
+      <th scope="col">Price</th>
+      <th scope="col">Status</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+   {% for order in orders %}
+     <tr>
+      <td scope="col">{{loop.index}}</td>
+      <td scope="col">{{order.pname}}</td>
+     <td scope="col">{{order.price}}</td>
+     <td scope="col">
+     <div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+   {{order.status}}
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+    <li><a class="dropdown-item" href="{{path('update_status',{order:order.id , status:'Shipped'})}}">Shipped</a></li>
+    <li><a class="dropdown-item" href="{{path('update_status',{order:order.id , status:'Rejected'})}}">Rejected</a></li>
+  </ul>
+</div>
+     </td>
+      <td>
+      <form id="{{order.id}}" action="{{path('delete_Order',{order:order.id})}}" method="post"><button onclick="deletItem('{{order.id}}')" class="btn  btn-sm btn-danger">Delte</button></form>
+    </td>
+    </tr>
+   {% endfor %}
+  </tbody>
+</table>
+</div>
+
+{% endblock %}
