@@ -31,6 +31,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
+
+    #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
+    private ?Panier $panier = null;
+
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Order::class, orphanRemoval: true)]
     private Collection $orders;
 
@@ -38,6 +42,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->orders = new ArrayCollection();
     }
+
 
     public function getId(): ?int
     {
@@ -107,6 +112,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getPanier(): ?Panier
+    {
+        return $this->panier;
+    }
+
+    public function setPanier(Panier $panier): self
+    {
+        // set the owning side of the relation if necessary
+        if ($panier->getUser() !== $this) {
+            $panier->setUser($this);
+        }
+
+        $this->panier = $panier;
+
+        return $this;
     }
 
     /**

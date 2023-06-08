@@ -3,12 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Order;
+use App\Entity\Panier;
 use App\Repository\OrderRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\Product;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 class OrderController extends AbstractController
 {
 
@@ -23,6 +25,7 @@ class OrderController extends AbstractController
     }
 
     #[Route('/orders', name: 'orders_list')]
+    #[IsGranted('ROLE_ADMIN')]
     public function index(): Response
     {
         $orders = $this->orderrepository->findAll();
@@ -41,17 +44,15 @@ class OrderController extends AbstractController
         ]);
     }
 
-    #[Route('/register/order/{product}', name: 'register_order')]
-    public function AddProduct(Product $product): Response
+    #[Route('/register/order/{panier}', name: 'register_order')]
+    public function AddProduct(Panier $panier): Response
     {
         if(!$this->getUser()){
         return $this->redirectToRoute('login');    
         }
-
         $order = new Order();
-
-        $order->setPname($product->getName());
-        $order->setPrice($product->getPrice());
+        $order->setPname($panier->getPanierName());
+        $order->setPrice($panier->getPrice());
         $order->setStatus('Processing...');
         $order->setUser($this->getUser());
             $this->entityManager->persist($order);

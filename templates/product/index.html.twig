@@ -20,6 +20,7 @@
       <th scope="col">Cathegory</th>
       <th scope="col">Quantity</th>
       <th scope="col">Price</th>
+      <th scope="col">Quantity</th>
       <th scope="col">Action</th>
     <th scope="col"></th>
     </tr>
@@ -32,6 +33,14 @@
       <td scope="col">{{product.cathegorie}}</td>
       <td scope="col">{{product.quantity}}</td>
       <td scope="col">{{product.price}}</td>
+      <td scope="col"><button type="button" class="btn btn-primary position-relative">
+    <i class="fa-solid fa-store"></i>
+  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+    {{product.quantity}}
+    <span class="visually-hidden">unread messages</span>
+  </span>
+</button></td>
+
       <td scope="col" >
       <a  href="{{path('product',{id:product.id})}}" class="btn  btn-sm btn-dark">Show</a>
       <a  href="{{path('edit',{id:product.id})}}" class="btn  btn-sm btn-warning">Edit</a>

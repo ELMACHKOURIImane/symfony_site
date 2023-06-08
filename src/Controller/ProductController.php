@@ -85,8 +85,10 @@ class ProductController extends AbstractController
 #[Route('/show/product/{id}', name: 'product')]
 public function Show(Product $product): Response
 {
+    $user = $this->getUser();
     return $this->render('product/show.html.twig', [
         'product' => $product,
+        'user' => $user
     ]);
 }
 #[Route('/edit/product/{id}', name: 'edit')]

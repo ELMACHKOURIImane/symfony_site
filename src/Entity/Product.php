@@ -32,6 +32,9 @@ class Product
     #[ORM\JoinColumn(nullable: false)]
     private ?Cathegorie $cathegorie = null;
 
+    #[ORM\ManyToOne(inversedBy: 'products')]
+    private ?Panier $panier = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -105,6 +108,18 @@ class Product
     public function setCathegorie(?Cathegorie $cathegorie): self
     {
         $this->cathegorie = $cathegorie;
+
+        return $this;
+    }
+
+    public function getPanier(): ?Panier
+    {
+        return $this->panier;
+    }
+
+    public function setPanier(?Panier $panier): self
+    {
+        $this->panier = $panier;
 
         return $this;
     }
